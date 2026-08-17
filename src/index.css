@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #080A0A;
+  --color-surface: #111217;
+  --color-surface-elevated: #14151B;
+
+  --color-text-primary: #F4F4F5;
+  --color-text-secondary: #A4A5AD;
+  --color-text-muted: #6E7078;
+
+  --color-accent-lime: #B8FF3D;
+  --color-accent-dark-surface: #1B2A13;
+  --font-serif: "Playfair Display", serif;
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --width-container: 1240px;
+
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee: marquee 35s linear infinite;
+  --animate-wave: wave 1.6s ease infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-12deg); }
+    40% { transform: rotate(14deg); }
+    60% { transform: rotate(-12deg); }
+    80% { transform: rotate(8deg); }
+  }
+}
+
+:root {
+  --color-text-reveal-start: rgba(255, 255, 255, 0.15);
+  --color-text-reveal-end: #ffffff;
+}
+
+html.light {
+  --color-bg: #F8FAF9;
+  --color-surface: #EBECEE;
+  --color-surface-elevated: #FFFFFF;
+
+  --color-text-primary: #0D1111;
+  --color-text-secondary: #515959;
+  --color-text-muted: #879292;
+
+  --color-accent-lime: #5EA300;
+  --color-accent-dark-surface: #EAF6DE;
+  --color-border-subtle: rgba(0, 0, 0, 0.08);
+
+  --color-text-reveal-start: rgba(0, 0, 0, 0.15);
+  --color-text-reveal-end: #0D1111;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+  }
+  
+  ::selection {
+    background-color: var(--color-accent-lime);
+    color: var(--color-bg);
+  }
+}
+
+/* Hide scrollbar but keep scroll behavior */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Custom styles for layout, custom scrollbar, etc. */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-border-subtle);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Top Progress Bar Keyframes for Route Lazy Loader */
+@keyframes progressBar {
+  0% {
+    left: -30%;
+    width: 30%;
+  }
+  50% {
+    left: 30%;
+    width: 40%;
+  }
+  100% {
+    left: 100%;
+    width: 30%;
+  }
+}
+
+/* Circular View Transition animations */
+::view-transition-image-pair(root) {
+  isolation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* About me scroll text reveal opacity configuration */
+.reveal-word {
+  opacity: 0.15;
+}
+
+html.light .reveal-word {
+  opacity: 0.35;
+}

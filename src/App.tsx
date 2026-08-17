@@ -109,8 +109,8 @@ export default function App() {
 
 function RouteLoader() {
   return (
-    <div className="fixed inset-0 bg-bg z-[9998] pointer-events-none">
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-white/5 overflow-hidden">
+    <div className="fixed inset-0 bg-bg z-9998 pointer-events-none">
+      <div className="absolute top-0 left-0 w-full h-0.5 bg-white/5 overflow-hidden">
         <div className="h-full w-[30%] bg-accent-lime animate-pulse" />
       </div>
     </div>

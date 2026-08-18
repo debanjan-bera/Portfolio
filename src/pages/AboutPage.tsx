@@ -1,9 +1,21 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { LoopingTechStack } from '../components/LoopingTechStack';
 
 export default function AboutPage({ isLoading }: { isLoading: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isDark, setIsDark] = useState(() => !document.documentElement.classList.contains('light'));
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(!document.documentElement.classList.contains('light'));
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (isLoading) return;
@@ -41,20 +53,20 @@ export default function AboutPage({ isLoading }: { isLoading: boolean }) {
       {/* Hero Visual Section (Editorial Design) */}
       <div className="relative w-full max-w-4xl mb-32 flex items-center justify-center min-h-[40vh] md:min-h-[50vh]">
         {/* Hover Target Container (Sized exactly to the portrait bounds) */}
-        <div className="relative w-[220px] h-[330px] sm:w-[280px] sm:h-[420px] md:w-[360px] md:h-[540px] lg:w-[400px] lg:h-[500px] group/image cursor-pointer flex items-center justify-center border border-border-subtle">
+        <div className="relative w-55 h-82.5 sm:w-70 sm:h-105 md:w-90 md:h-135 lg:w-100 lg:h-125 group/image cursor-pointer flex items-center justify-center border border-border-subtle">
           {/* Layer 1: Background Panel Image Container (Stays still - z-0) */}
-          <div className="about-image-container absolute inset-0 overflow-hidden grayscale  shadow-2xl z-0">
+          <div className={`about-image-container absolute inset-0 overflow-hidden shadow-2xl z-0 ${isDark ? 'grayscale' : ''}`}>
             <img
-              src="/debanjan_bg.png"
+              src={isDark ? '/portrait-grey-bg.png' : '/portrait-colour-bg.png'}
               alt="About Background"
-              className="w-full h-full object-cover object-center opacity-80 pointer-events-none transition-opacity duration-700 group-hover/image:opacity-40"
+              className={`w-full h-full object-cover object-center opacity-80 pointer-events-none transition-opacity duration-700 group-hover/image:opacity-80 ${isDark ? '' : 'mix-blend-multiply'}`}
             />
             {/* Top Fade Overlay only */}
-            <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-bg to-transparent pointer-events-none z-10" />
+            {isDark && <div className="absolute top-0 inset-x-0 h-16 bg-linear-to-b from-bg to-transparent pointer-events-none z-10" />}
           </div>
 
           {/* Layer 2: Giant Serif Typography (Sandwiched in the middle - z-10) */}
-          <h1 className="about-title absolute w-[100vw] max-w-4xl px-4 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-center font-serif text-[clamp(2.2rem,6.5vw,5.5rem)] font-normal leading-[0.95] tracking-tight text-[#CEC9C9] pointer-events-none z-10 select-none transition-all duration-[1200ms] cubic-bezier(0.16, 1, 0.3, 1) group-hover/image:opacity-30">
+          <h1 className="about-title absolute w-screen max-w-4xl px-4 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-center font-serif text-[clamp(2.2rem,6.5vw,5.5rem)] font-normal leading-[0.95] tracking-tight text-[#CEC9C9] pointer-events-none z-10 select-none transition-all duration-1200 cubic-bezier(0.16, 1, 0.3, 1) group-hover/image:opacity-30">
             <span className="inline-block">Debanjan</span>
 
             <span className="inline-block whitespace-nowrap">
@@ -66,9 +78,9 @@ export default function AboutPage({ isLoading }: { isLoading: boolean }) {
           {/* Layer 3: Foreground Cutout of the Man (Sits in front of the text - z-20) */}
           <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none z-20">
             <img
-              src="/debanjan_bg-removebg-preview.png"
+              src={isDark ? '/portrait-grey-transparent.png' : '/portrait-colour-transparent.png'}
               alt="Debanjan Foreground"
-              className="w-full h-full object-cover object-center opacity-0 group-hover/image:opacity-100 transition-all duration-[1200ms] cubic-bezier(0.16, 1, 0.3, 1) origin-bottom"
+              className="w-full h-full object-cover object-center opacity-0 group-hover/image:opacity-100 transition-all duration-1200 cubic-bezier(0.16, 1, 0.3, 1) origin-bottom"
             />
           </div>
         </div>

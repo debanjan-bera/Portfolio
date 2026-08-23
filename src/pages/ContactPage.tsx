@@ -111,7 +111,7 @@ function ContactPage({ isLoading }: { isLoading: boolean }) {
             <div className="absolute inset-0 bg-radial from-accent-lime/5 to-transparent pointer-events-none" />
 
             {/* Left side in card - Portrait Avatar */}
-            <div className="flex-shrink-0 z-10 relative">
+            <div className="shrink-0 z-10 relative">
               <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-border-subtle shadow-md grayscale">
                 <img
                   src="/portrait-colour.png"

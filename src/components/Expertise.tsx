@@ -313,7 +313,7 @@ function Expertise() {
   }, [activeExpertise]);
 
   return (
-    <section id="expertise" className="space-y-16">
+    <section id="expertise" className="px-6 md:px-0 space-y-16">
       <div>
         <span className="text-xs font-bold tracking-widest text-accent-lime uppercase block mb-4">
           ✦ SPECIALITY

@@ -6,19 +6,12 @@ interface LoaderProps {
   onComplete: () => void;
 }
 
-interface WordStep {
-  text: string;
-  subtext?: string;
-  dot?: boolean;
-}
-
 export default function Loader({ appReady, onComplete }: LoaderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const brandRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const descRef = useRef<HTMLDivElement>(null);
   const countRef = useRef<HTMLDivElement>(null);
-  const progressBarRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
+  const darkBgRef = useRef<HTMLDivElement>(null);
 
   const appReadyRef = useRef(appReady);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
@@ -56,109 +49,86 @@ export default function Loader({ appReady, onComplete }: LoaderProps) {
         return;
       }
 
-      const steps: WordStep[] = [
-        { text: 'HELLO', dot: true },
-        { text: 'FULL-STACK DEVELOPER', dot: true },
-        { text: 'AI ENGINEERING', dot: true },
-        { text: 'READY TO BUILD', dot: true }
-      ];
+      const progressObj = { value: 0 };
 
-      // Helper to generate the text HTML
-      const getHtmlForStep = (step: WordStep) => {
-        return `${step.text}${step.dot ? '<span class="text-white/20">.</span>' : ''}`;
+      // Helper to update text
+      const updateCount = (val: number) => {
+        const rounded = Math.floor(val);
+        if (countRef.current) {
+          countRef.current.textContent = `${rounded}%`;
+        }
       };
 
-      // 1. Initial fade-in of elements (start with HELLO. and intro description)
+      // 1. Initial fade-in of elements (brand info, the big number, footer)
       tl.fromTo(
-        [brandRef.current, textRef.current, descRef.current, progressBarRef.current?.parentElement, countRef.current],
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: 'power3.out' }
+        [brandRef.current, countRef.current, footerRef.current],
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' }
       );
 
-      // 2. Loop through and transition the subsequent steps
-      steps.slice(1).forEach((step, index) => {
-        // Slide out the current word (and description on first step)
-        const targets = index === 0 ? [textRef.current, descRef.current] : [textRef.current];
-        tl.to(targets, {
-          y: -20,
-          opacity: 0,
-          duration: 0.12,
-          ease: 'power3.in',
-        });
-
-        // Set the new content and place them below in position
-        tl.set(textRef.current, {
-          innerHTML: getHtmlForStep(step),
-          y: 20,
-        });
-
-        if (index === 0) {
-          tl.set(descRef.current, {
-            textContent: '',
-            y: 0,
-          });
-        }
-
-        // Slide in the new word
-        tl.to(textRef.current, {
-          y: 0,
-          opacity: 1,
-          duration: 0.15,
-          ease: 'power3.out',
-        });
-
-        // Hold duration: last word has slightly longer hold
-        const isLastWord = index === steps.length - 2;
-        const holdDuration = isLastWord ? 0.5 : 0.18;
-        tl.to({}, { duration: holdDuration });
+      // 2. Animate 0 -> 50
+      tl.to(progressObj, {
+        value: 50,
+        duration: 1.0,
+        ease: 'power2.out',
+        onUpdate: () => updateCount(progressObj.value),
       });
 
-      // Capture duration up to this point to sync progress counting
-      const exitTime = tl.duration();
+      // Small pause
+      tl.to({}, { duration: 0.15 });
 
-      // Pause point: wait until appReady is true!
+      // 3. Animate 50 -> 75
+      tl.to(progressObj, {
+        value: 75,
+        duration: 0.8,
+        ease: 'power2.inOut',
+        onUpdate: () => updateCount(progressObj.value),
+      });
+
+      // Small pause
+      tl.to({}, { duration: 0.15 });
+
+      // 4. Animate 75 -> 99
+      tl.to(progressObj, {
+        value: 99,
+        duration: 1.2,
+        ease: 'power1.out',
+        onUpdate: () => updateCount(progressObj.value),
+      });
+
+      // 5. Pause point: wait until appReady is true!
       tl.add(() => {
         if (!appReadyRef.current) {
           tl.pause();
         }
       });
 
-      // 3. Exit Animation
-      tl.to([brandRef.current, textRef.current, descRef.current, countRef.current, progressBarRef.current?.parentElement], {
-        opacity: 0,
-        y: -20,
-        duration: 0.3,
-        stagger: 0.03,
-        ease: 'power3.in',
-      });
-
-      // Slide up the container curtain
-      tl.to(
-        containerRef.current,
-        {
-          clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
-          duration: 0.65,
-          ease: 'power4.inOut',
-        },
-        '-=0.15'
-      );
-
-      // 4. Progress bar & percentage counting syncing (runs from start to the exitTime)
-      const progressObj = { value: 0 };
+      // 6. Animate 99 -> 100
       tl.to(progressObj, {
         value: 100,
-        duration: exitTime,
-        ease: 'none',
-        onUpdate: () => {
-          const val = Math.floor(progressObj.value);
-          if (countRef.current) {
-            countRef.current.textContent = `${val.toString().padStart(3, '0')}%`;
-          }
-          if (progressBarRef.current) {
-            progressBarRef.current.style.width = `${val}%`;
-          }
-        },
-      }, 0);
+        duration: 0.4,
+        ease: 'power3.out',
+        onUpdate: () => updateCount(progressObj.value),
+      });
+
+      // Hold briefly at 100%
+      tl.to({}, { duration: 0.2 });
+
+      // 7. Exit animation: Fade out UI elements and the dark background layer
+      tl.to([brandRef.current, countRef.current, footerRef.current, darkBgRef.current], {
+        opacity: 0,
+        duration: 0.35,
+        stagger: 0.05,
+        ease: 'power3.inOut',
+      });
+
+      // 8. 6-Strip exit animation (staggered slide-up of the lime strips)
+      tl.to('.loader-strip', {
+        yPercent: -100,
+        duration: 0.8,
+        stagger: 0.08,
+        ease: 'power4.inOut',
+      }, '-=0.25');
 
     }, containerRef);
 
@@ -168,11 +138,27 @@ export default function Loader({ appReady, onComplete }: LoaderProps) {
   return (
     <div
       ref={containerRef}
-      style={{ clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' }}
-      className="fixed inset-0 bg-[#080A0A] z-[9999] flex flex-col justify-between p-8 md:p-16 select-none overflow-hidden"
+      className="fixed inset-0 z-[9999] flex flex-col justify-between p-8 md:p-16 select-none overflow-hidden bg-transparent"
     >
+      {/* 6 strips background (rendered below the dark Bg layer) */}
+      <div className="absolute inset-0 flex pointer-events-none" style={{ zIndex: 1 }}>
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className="loader-strip h-full flex-1 bg-[#1A1A1E] border-r border-white/5 last:border-r-0"
+          />
+        ))}
+      </div>
+
+      {/* Solid dark background layer that covers the screen during loading */}
+      <div
+        ref={darkBgRef}
+        className="absolute inset-0 bg-bg pointer-events-none"
+        style={{ zIndex: 2 }}
+      />
+
       {/* Top Section - Brand / Logo */}
-      <div ref={brandRef} className="flex justify-between items-center w-full">
+      <div ref={brandRef} className="flex justify-between items-center w-full z-10 relative">
         <div className="flex items-center gap-2 text-accent-lime font-bold tracking-wider text-sm">
           <span>✦</span>
           <span>Debanjan.PORTFOLIO</span>
@@ -182,45 +168,22 @@ export default function Loader({ appReady, onComplete }: LoaderProps) {
         </div>
       </div>
 
-      {/* Middle Section - Word Cycle (Centered) */}
-      <div className="flex-grow flex flex-col justify-center items-center text-center gap-6 px-4">
+      {/* Middle Section - Big Count Number (Centered) */}
+      <div className="flex-grow flex flex-col justify-center items-center text-center px-4 z-10 relative">
         <div
-          ref={textRef}
-          className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-accent-lime uppercase leading-none"
-          style={{ minHeight: '1.2em' }}
-          dangerouslySetInnerHTML={{ __html: 'HELLO<span class="text-white/20">.</span>' }}
-        />
-
-        <div
-          ref={descRef}
-          className="text-text-muted max-w-lg text-sm sm:text-base font-mono tracking-wider"
+          ref={countRef}
+          className="text-8xl sm:text-[10rem] md:text-[14rem] lg:text-[18rem] font-display font-light tabular-nums tracking-tighter text-text-secondary leading-none"
         >
-          Crafting exceptional and high-impact digital products with modern aesthetic engineering.
+          0%
         </div>
       </div>
 
-      {/* Bottom Section - Progress Bar and Percent */}
-      <div className="flex flex-col gap-6 w-full font-satoshi">
+      {/* Bottom Section - Info */}
+      <div ref={footerRef} className="flex flex-col gap-6 w-full font-satoshi z-10 relative">
         <div className="flex justify-between items-baseline">
-          <span className="text-text-muted text-xs uppercase tracking-widest">
+          <span className="text-text-muted text-xs uppercase tracking-widest font-semibold">
             INITIALIZING CORE ENGINE
           </span>
-          <div
-            ref={countRef}
-            className="text-6xl md:text-8xl font-display font-semibold tabular-nums tracking-tighter"
-          >
-            000%
-          </div>
-        </div>
-
-        {/* Outer bar */}
-        <div className="h-[2px] w-full bg-white/10 relative overflow-hidden rounded-full">
-          {/* Inner bar */}
-          <div
-            ref={progressBarRef}
-            className="h-full bg-accent-lime absolute left-0 top-0 shadow-[0_0_8px_var(--color-accent-lime)]"
-            style={{ width: '0%' }}
-          />
         </div>
       </div>
     </div>

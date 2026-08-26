@@ -1,4 +1,4 @@
-import { memo, useState, useEffect, useRef } from 'react';
+import { memo, useState, useLayoutEffect, useRef } from 'react';
 import { LuGithub, LuInstagram, LuLinkedin, LuMail, LuTwitter } from 'react-icons/lu';
 import { gsap } from 'gsap';
 import LiquidButton from '../components/LiquidButton';
@@ -18,7 +18,7 @@ function ContactPage({ isLoading }: { isLoading: boolean }) {
     // Handle form submit logic here...
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isLoading) return;
     window.scrollTo({ top: 0, behavior: 'instant' });
 

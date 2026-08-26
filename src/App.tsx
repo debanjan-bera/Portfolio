@@ -5,6 +5,7 @@ import Lenis from 'lenis';
 import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header';
+import MobileNav from './components/MobileNav';
 import FloatingWidget from './components/FloatingWidget';
 import Loader from './components/Loader';
 
@@ -68,7 +69,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-bg text-text-primary relative">
+    <div className={`min-h-screen bg-bg text-text-primary relative ${!introFinished ? 'is-loading' : ''}`}>
 
       <Header />
 
@@ -98,10 +99,15 @@ export default function App() {
         </Routes>
       </Suspense>
 
+      <MobileNav />
+
       <FloatingWidget />
 
       {!introFinished && (
-        <Loader appReady={appReady} onComplete={handleIntroComplete} />
+        <Loader
+          appReady={appReady}
+          onComplete={handleIntroComplete}
+        />
       )}
     </div>
   );

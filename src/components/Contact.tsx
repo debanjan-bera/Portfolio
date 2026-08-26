@@ -6,7 +6,7 @@ import Footer from './Footer';
 
 function Contact() {
   return (
-    <section id="contact">
+    <section id="contact" className='px-6 md:px-0 '>
       {/* Availability Card Container */}
       <div className="bg-surface-elevated border border-border-subtle rounded-lg p-8 md:p-16  text-center flex flex-col items-center gap-8 relative overflow-hidden">
         {/* Background Accent Grid or Circles */}

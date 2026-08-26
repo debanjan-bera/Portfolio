@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from 'react';
+import { memo, useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 interface Project {
@@ -53,7 +53,7 @@ const PROJECTS: Project[] = [
 function Projects({ isLoading }: { isLoading: boolean }) {
   const containerRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isLoading) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import About from "../components/About";
@@ -11,7 +11,7 @@ export const LandingPage = ({ isLoading }: { isLoading: boolean }) => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isLoading) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -60,7 +60,7 @@ export const LandingPage = ({ isLoading }: { isLoading: boolean }) => {
   }, [isLoading]);
 
   return (
-    <main ref={containerRef} className="max-w-[1240px] mx-auto px-6 md:px-12 pt-24 flex flex-col gap-[clamp(96px,5vw,100px)]">
+    <main ref={containerRef} className="max-w-[1240px] mx-auto px-0 md:px-12 pt-24 flex flex-col gap-[clamp(96px,5vw,100px)]">
       <Hero onAboutClick={() => navigate('/about')} />
         <LoopingTechStack/>
       <About />

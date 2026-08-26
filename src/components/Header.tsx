@@ -123,7 +123,7 @@ function Header() {
         </Link>
 
         {/* Links */}
-        <nav className="flex items-center gap-3 sm:gap-6">
+        <nav className="hidden md:flex items-center gap-3 sm:gap-6">
           {NAV_LINKS.map((link) => {
             const isActive = location.pathname === link.href;
             return <HeaderNavLink key={link.id} link={link} isActive={isActive} />;

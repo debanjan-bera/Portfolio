@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #080A0A;
+  --color-bg: #0D0D0D;
   --color-surface: #111217;
   --color-surface-elevated: #14151B;
 
@@ -10,7 +10,7 @@
   --color-text-secondary: #A4A5AD;
   --color-text-muted: #6E7078;
 
-  --color-accent-lime: #B8FF3D;
+  --color-accent-lime: #ffff23;
   --color-accent-dark-surface: #1B2A13;
   --font-serif: "Playfair Display", serif;
   --color-border-subtle: rgba(255, 255, 255, 0.08);
@@ -149,4 +149,14 @@ html.light {
 
 html.light .reveal-word {
   opacity: 0.35;
+}
+
+/* Prevent GSAP flash of content (FOUC) during preloader state */
+.is-loading #home > div > *,
+.is-loading .about-image-container,
+.is-loading .about-title > span,
+.is-loading .about-content-section,
+.is-loading .contact-fade-in,
+.is-loading #projects > * {
+  opacity: 0 !important;
 }

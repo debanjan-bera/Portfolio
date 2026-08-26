@@ -49,7 +49,7 @@ function About() {
     <section
       ref={containerRef}
       id="about"
-      className="flex flex-col items-center justify-center text-center py-16 md:py-24 md:pb-48 max-w-5xl mx-auto space-y-8"
+      className="px-6 md:px-0 flex flex-col items-center justify-center text-center py-16 md:py-24 md:pb-48 max-w-5xl mx-auto space-y-8"
     >
       {/* Centered Badge */}
       <div className="flex items-center gap-2 text-accent-lime">
@@ -60,7 +60,7 @@ function About() {
       {/* Large Centered Paragraph */}
       <p className="text-xl md:text-3xl lg:text-4xl font-medium tracking-tight text-center leading-[1.3] reveal-text">
         {splitWords(
-          "I'm Debanjan, with over 5+ years of experience in design & development with strong focus on producing high quality & impactful digital experiences. I have worked with some of the most innovative industry leaders to help build their top-notch products."
+          "I am a developer focused on building thoughtful digital experiences where clean design meets meaningful technology. I enjoy turning ideas into refined, interactive products and continuously exploring new ways to make the web feel simpler, smarter, and more engaging."
         )}
       </p>
     </section>

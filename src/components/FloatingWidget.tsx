@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef, memo } from 'react';
+import Assistant from './Assistant';
 
 function FloatingWidget() {
   const [eyeOffset, setEyeOffset] = useState({ x: 0, y: 0 });
+  const [isOpen, setIsOpen] = useState(false);
   const widgetRef = useRef<HTMLDivElement>(null);
 
   // Mouse Tracking eye pupils interaction
@@ -28,34 +30,39 @@ function FloatingWidget() {
   }, []);
 
   return (
-    <div
-      ref={widgetRef}
-      className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-white rounded-[50%] flex items-center justify-center shadow-lg border border-border-subtle hover:scale-105 active:scale-95 transition-transform cursor-pointer group"
-      title="Interactive Helper"
-    >
-      <div className="flex gap-0.5">
-        {/* Left Eye */}
-        <div className="w-[14px] h-[20px] bg-white border-2 border-black rounded-[50%] relative flex items-center justify-center overflow-hidden">
-          <div
-            className="w-[8px] h-[8px] bg-black rounded-full absolute transition-all duration-75"
-            style={{ transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)` }}
-          >
-            {/* Eye Glint */}
-            <span className="w-[2px] h-[2px] bg-white rounded-full absolute top-[1px] left-[1px]" />
+    <>
+      <div
+        ref={widgetRef}
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="fixed bottom-24 md:bottom-6 right-6 z-50 w-16 h-16 bg-white rounded-[50%] flex items-center justify-center shadow-lg border border-border-subtle hover:scale-105 active:scale-95 transition-transform cursor-pointer group"
+        title="Interactive Helper"
+      >
+        <div className="flex gap-0.5">
+          {/* Left Eye */}
+          <div className="w-[14px] h-[20px] bg-white border-2 border-black rounded-[50%] relative flex items-center justify-center overflow-hidden">
+            <div
+              className="w-[8px] h-[8px] bg-black rounded-full absolute transition-all duration-75"
+              style={{ transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)` }}
+            >
+              {/* Eye Glint */}
+              <span className="w-[2px] h-[2px] bg-white rounded-full absolute top-[1px] left-[1px]" />
+            </div>
           </div>
-        </div>
-        {/* Right Eye */}
-        <div className="w-[14px] h-[20px] bg-white border-2 border-black rounded-[50%] relative flex items-center justify-center overflow-hidden">
-          <div
-            className="w-[8px] h-[8px] bg-black rounded-full absolute transition-all duration-75"
-            style={{ transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)` }}
-          >
-            {/* Eye Glint */}
-            <span className="w-[2px] h-[2px] bg-white rounded-full absolute top-[1px] left-[1px]" />
+          {/* Right Eye */}
+          <div className="w-[14px] h-[20px] bg-white border-2 border-black rounded-[50%] relative flex items-center justify-center overflow-hidden">
+            <div
+              className="w-[8px] h-[8px] bg-black rounded-full absolute transition-all duration-75"
+              style={{ transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)` }}
+            >
+              {/* Eye Glint */}
+              <span className="w-[2px] h-[2px] bg-white rounded-full absolute top-[1px] left-[1px]" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <Assistant isOpen={isOpen} onClose={() => setIsOpen(false)} />
+    </>
   );
 }
 

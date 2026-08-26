@@ -8,19 +8,19 @@ interface HeroProps {
 
 function Hero({ onAboutClick }: HeroProps) {
   return (
-    <section id="home" className="min-h-[75vh] flex flex-col justify-center items-start gap-12">
+    <section id="home" className="min-h-[60vh] md:min-h-[75vh] px-6 md:px-0 flex flex-col justify-center items-start gap-8 md:gap-12">
       {/* Greeting Badge */}
       <div className="flex items-center gap-3 select-none">
         <Hand className="w-5 h-5 text-accent-lime animate-wave origin-[70%_70%]" />
-        <span className="text-sm md:text-lg font-display font-medium text-text-primary tracking-tight">
+        <span className="text-sm md:text-xl font-display font-medium text-text-primary tracking-tight">
           Hi! It's me Debanjan,
         </span>
       </div>
 
       <div className="max-w-4xl space-y-4">
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-medium text-text-primary">
-          Crafting <span className="text-accent-lime">purpose driven</span> digital experiences that
-          inspire & engage.
+        <h1 className="text-4xl md:text-5xl lg:text-7xl font-medium text-text-primary">
+          Building <span className="text-accent-lime">intelligent digital</span> experiences that <span className="text-accent-lime">think</span>, connect,
+          and feel human.
         </h1>
       </div>
 
@@ -28,8 +28,7 @@ function Hero({ onAboutClick }: HeroProps) {
       <div className="w-full flex flex-col md:flex-row gap-5 items-start md:items-center">
         <span className="h-[1px] w-full md:w-1/2 bg-border-subtle shrink-0" />
         <p className="text-sm md:text-md text-text-secondary font-normal max-w-2xl">
-          I work with brands globally to build pixel-perfect, engaging, and accessible digital
-          experiences that drive results and achieve business goals.
+          I’m a Full-Stack & AI Developer focused on turning ideas into thoughtful products — from engaging interfaces to powerful systems and intelligent experiences.
         </p>
       </div>
       <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 select-none font-sans">

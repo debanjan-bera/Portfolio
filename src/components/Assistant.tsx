@@ -22,10 +22,10 @@ export default function Assistant({ isOpen, onClose }: AssistantProps) {
 
   // Auto-scroll to bottom of messages
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
-
-  if (!isOpen) return null;
+    if (isOpen) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isTyping, isOpen]);
 
   const handleSendMessage = (text: string) => {
     if (!text.trim()) return;
@@ -90,13 +90,27 @@ export default function Assistant({ isOpen, onClose }: AssistantProps) {
     { label: 'Work Experience', desc: 'See past experience', query: 'Tell me about your work experience' },
   ];
 
+  useEffect(() => {
+    if (!isOpen) {
+      const timer = setTimeout(() => {
+        setIsFullscreen(false);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
   return (
     <div
-      className={`fixed z-50 bg-surface border border-border-subtle shadow-2xl flex flex-col transition-all duration-300 overflow-hidden font-sans
+      className={`fixed z-50 bg-surface border border-border-subtle shadow-2xl flex flex-col transition-all duration-300 ease-standard overflow-hidden font-sans origin-bottom-right
         ${
           isFullscreen
             ? 'top-4 bottom-4 left-4 right-4 md:top-8 md:bottom-8 md:left-24 md:right-24 rounded-2xl'
             : 'inset-0 w-full h-full max-h-full rounded-none border-none sm:inset-auto sm:bottom-24 sm:right-6 sm:w-[400px] sm:h-[800px] sm:max-h-[calc(100vh-120px)] sm:rounded-2xl sm:border'
+        }
+        ${
+          isOpen
+            ? 'opacity-100 scale-100 pointer-events-auto visible'
+            : 'opacity-0 scale-80 pointer-events-none invisible'
         }
       `}
     >

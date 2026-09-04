@@ -10,7 +10,8 @@ import {
   FaDocker,
   FaAws,
   FaFigma,
-  FaGitAlt
+  FaGitAlt,
+
 } from 'react-icons/fa';
 import {
   SiJavascript,
@@ -27,7 +28,7 @@ import {
   SiFramer,
   SiGreensock
 } from 'react-icons/si';
-
+import { FaCode } from "react-icons/fa6";
 interface ExpertiseItem {
   id: string;
   title: string;
@@ -41,7 +42,7 @@ const EXPERTISE: ExpertiseItem[] = [
   {
     id: 'dev',
     title: 'Development',
-    icon: <Code className="w-5 h-5 text-accent-lime" />,
+    icon: <FaCode className="w-5 h-5 text-accent-lime"/>,
     description:
       'Building responsive websites. Providing the users an enriching experience that responds to any device and screen size.',
     imageDesc:
@@ -72,26 +73,19 @@ const EXPERTISE: ExpertiseItem[] = [
 const TECHNOLOGIES = [
   { name: 'HTML', icon: <FaHtml5 className="text-orange-500 w-4 h-4" /> },
   { name: 'CSS', icon: <FaCss3Alt className="text-blue-500 w-4 h-4" /> },
+  { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-cyan-400 w-4 h-4" /> },
   { name: 'JavaScript', icon: <SiJavascript className="text-yellow-400 w-4 h-4" /> },
   { name: 'TypeScript', icon: <SiTypescript className="text-blue-600 w-4 h-4" /> },
   { name: 'React.js', icon: <FaReact className="text-cyan-400 w-4 h-4" /> },
-  { name: 'Next.js', icon: <SiNextdotjs className="text-text-primary w-4 h-4" /> },
-  { name: 'Angular', icon: <FaAngular className="text-red-600 w-4 h-4" /> },
   { name: 'Redux', icon: <SiRedux className="text-purple-600 w-4 h-4" /> },
+  { name: 'GSAP', icon: <SiGreensock className="text-green-400 w-4 h-4" /> },
+  { name: 'Framer Motion', icon: <SiFramer className="text-text-primary w-4 h-4" /> },
   { name: 'Node.js', icon: <FaNodeJs className="text-green-500 w-4 h-4" /> },
   { name: 'Express.js', icon: <SiExpress className="text-text-primary w-4 h-4" /> },
   { name: 'MySQL', icon: <SiMysql className="text-blue-500 w-4 h-4" /> },
   { name: 'MongoDB', icon: <SiMongodb className="text-green-600 w-4 h-4" /> },
-  { name: 'PostgreSQL', icon: <SiPostgresql className="text-blue-400 w-4 h-4" /> },
-  { name: 'Cypress', icon: <SiCypress className="text-emerald-600 w-4 h-4" /> },
-  { name: 'Docker', icon: <FaDocker className="text-blue-500 w-4 h-4" /> },
-  { name: 'Firebase', icon: <SiFirebase className="text-amber-500 w-4 h-4" /> },
-  { name: 'AWS', icon: <FaAws className="text-orange-400 w-4 h-4" /> },
-  { name: 'GSAP', icon: <SiGreensock className="text-green-400 w-4 h-4" /> },
-  { name: 'Framer Motion', icon: <SiFramer className="text-text-primary w-4 h-4" /> },
-  { name: 'Figma', icon: <FaFigma className="text-pink-500 w-4 h-4" /> },
-  { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-cyan-400 w-4 h-4" /> },
   { name: 'Git', icon: <FaGitAlt className="text-orange-600 w-4 h-4" /> },
+  { name: 'PostgreSQL', icon: <SiPostgresql className="text-blue-400 w-4 h-4" /> },
 ];
 
 function Expertise() {
@@ -347,7 +341,7 @@ function Expertise() {
                 >
                   <div className="flex items-center gap-4">
                     {item.icon}
-                    <span className="text-lg md:text-xl font-medium text-text-primary">
+                    <span className="text-md md:text-lg font-medium text-text-primary">
                       {item.title}
                     </span>
                   </div>

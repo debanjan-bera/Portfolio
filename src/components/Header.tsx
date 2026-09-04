@@ -110,7 +110,7 @@ function Header() {
       <div
         className={`transition-all duration-[400ms] ease-standard flex items-center justify-between w-full border transform-gpu ${
           isScrolled
-            ? 'bg-surface/70 backdrop-blur-md border-border-subtle rounded-pill px-6 py-3 shadow-lg'
+            ? 'bg-surface/80 backdrop-blur-xl border-border-subtle rounded-pill px-6 py-3 shadow-lg'
             : 'bg-transparent border-transparent rounded-none px-0 py-3'
         }`}
       >

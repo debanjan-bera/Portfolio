@@ -35,7 +35,7 @@ function Hero({ onAboutClick }: HeroProps) {
         {/* Left Side: Social Links */}
         <div className="hidden md:flex flex-wrap gap-8 text-md font-bold tracking-[0.2em] text-text-secondary uppercase">
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/debanjan-bera-05db"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 hover:text-text-primary transition-colors duration-300"
@@ -43,7 +43,7 @@ function Hero({ onAboutClick }: HeroProps) {
             LINKEDIN <span className="text-[11px] font-light text-text-secondary">↗</span>
           </a>
           <a
-            href="https://github.com"
+            href="https://github.com/debanjan-bera"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 hover:text-text-primary transition-colors duration-300"
@@ -59,7 +59,7 @@ function Hero({ onAboutClick }: HeroProps) {
             INSTAGRAM <span className="text-[11px] font-light text-text-secondary">↗</span>
           </a>
           <a
-            href="mailto:contact@debanjan.com"
+            href="mailto:"
             className="flex items-center gap-1.5 hover:text-text-primary transition-colors duration-300"
           >
             GMAIL <span className="text-[11px] font-light text-text-secondary">↗</span>

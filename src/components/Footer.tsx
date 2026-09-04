@@ -4,7 +4,7 @@ const Footer = () => {
     return (<>
         <footer className="my-10 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-text-muted ">
             <div>
-                &copy; {new Date().getFullYear()} Devraj Chatribin. All rights reserved.
+                &copy; {new Date().getFullYear()} Debanjan Bera. All rights reserved.
             </div>
 
             <div className="flex items-center gap-6">

@@ -30,24 +30,6 @@ const PROJECTS: Project[] = [
     mockupText: 'Realtime Document Sync',
     mockupType: 'browser',
   },
-  {
-    id: 'indicov',
-    title: 'IndiCov',
-    categories: ['UI/UX Design'],
-    year: '2023',
-    bgClass: 'bg-rose-950/40 border-rose-500/20 text-rose-400',
-    mockupText: 'Vaccine Booking App',
-    mockupType: 'mobile',
-  },
-  {
-    id: 'code-screenshot',
-    title: 'Code Screenshot',
-    categories: ['Development'],
-    year: '2024',
-    bgClass: 'bg-purple-950/40 border-purple-500/20 text-purple-400',
-    mockupText: 'const code = "beautiful";',
-    mockupType: 'code',
-  },
 ];
 
 function Projects({ isLoading }: { isLoading: boolean }) {
